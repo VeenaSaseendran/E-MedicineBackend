@@ -1,5 +1,7 @@
 ﻿using E_MedicineBackend.EntityFrameWork;
 using E_MedicineBackend.Models;
+using E_MedicineBackend.ViewModels;
+using System.Linq.Expressions;
 
 namespace E_MedicineBackend.Services
 {
@@ -39,7 +41,12 @@ namespace E_MedicineBackend.Services
             _applicationDbContext.SaveChanges();
             return user;
         }
+        public IQueryable<User> Login(Expression<Func<User, bool>> predicate)
+        {
+            IQueryable<User> user = _applicationDbContext.Users.Where(predicate);
 
+            return user;
+        }
         public User Update(int id, User userChanges)
         {
             var user = _applicationDbContext.Users.Attach(userChanges);

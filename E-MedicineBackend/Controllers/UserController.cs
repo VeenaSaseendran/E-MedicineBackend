@@ -42,23 +42,22 @@ namespace E_MedicineBackend.Controllers
             }
             return Ok(newuser);
         }
-        //[HttpPost]
-        //public async Task<User> Authenticate(LoginViewModel model)
-        //{
-        //    //var user = await Task.Run(() => _users.SingleOrDefault(x => x.Username == username && x.Password == password));
-        //    var result= await signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
-        //    if (result.Succeeded)
-        //    {
-        //        var user = await Task.Run(() => _userService.GetAll().SingleOrDefault(x => x.Email == model.Email && x.Password == model.Password));
-        //        return user;
-        //    }
-        //    else
-        //    {
-        //        return null;
-        //    }
-        //    ;
+        [HttpPost("Login")]
+        public IActionResult Authenticate(LoginViewModel model)
+        {
+            //var user = await Task.Run(() => _users.SingleOrDefault(x => x.Username == username && x.Password == password));
+            var user = _userService.Login(x => x.Email == model.Email && x.Password == model.Password);
+            return Ok(user);
 
-        //}
+        }
+        [HttpPut("Update")]
+        public IActionResult update(User user)
+        {
+            //var user = await Task.Run(() => _users.SingleOrDefault(x => x.Username == username && x.Password == password));
+            var updateduser = _userService.Update(user.Id, user);
+            return Ok(updateduser);
+
+        }
 
     }
 }

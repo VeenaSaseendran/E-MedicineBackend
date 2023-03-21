@@ -13,8 +13,14 @@ namespace E_MedicineBackend.Controllers
             _medicineService = medicineService;
             //this.signInManager = signInManager;
         }
+        [HttpGet("GetById")]
+        public IActionResult GetById(int Id)
+        {
+            Medicines medicine = _medicineService.GetById(Id);
+            return Ok(medicine);
+        }
         [HttpPost("AddMedicine")]
-        public IActionResult AddMedicine(Medicines medicines)
+        public IActionResult AddMedicine([FromBody]  Medicines medicines)
         {
             Medicines newmedicine = new Medicines();
             if (ModelState.IsValid)
@@ -31,7 +37,7 @@ namespace E_MedicineBackend.Controllers
 
         }
         [HttpDelete("Delete")]
-        public IActionResult Delete(int Id)
+        public IActionResult Delete( int Id)
         {
            _medicineService.Delete(Id);
             return Ok();

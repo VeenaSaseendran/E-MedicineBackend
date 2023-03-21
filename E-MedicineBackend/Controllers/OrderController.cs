@@ -40,7 +40,7 @@ namespace E_MedicineBackend.Controllers
 
         }
         [HttpDelete("CancelOrder")]
-        public IActionResult CancelOrder(int Id)
+        public IActionResult CancelOrder([FromQuery] int Id)
         {
             _orderService.Delete(Id);
             return Ok();
